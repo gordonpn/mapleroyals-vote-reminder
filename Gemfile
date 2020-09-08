@@ -1,6 +1,6 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
 
-gem 'nokogiri'
-gem 'faraday'
-gem 'logging'
-gem 'dotenv', groups: [:development, :test]
+gem "nokogiri"
+gem "faraday"
+gem "logging"
+gem "dotenv", groups: [:development, :test]

@@ -1,17 +1,26 @@
-require 'logging'
-require 'dotenv'
-require_relative 'job'
+require "logging"
+require "dotenv"
+require_relative "job"
+require_relative "dispatcher"
 Dotenv.load
 
-Logging.logger.root.level = ENV['DEV'] ? :debug : :info
+Logging.logger.root.level = ENV["DEV"] ? :debug : :info
 Logging.logger.root.appenders = Logging.appenders.stdout
 
-class ReminderService
-  attr_reader :log
-  def initialize
-    @log = Logging.logger[self]
-  end
+def shut_down
+  puts "\nShutting down gracefully..."
+  sleep 1
 end
 
-job = Job.new
-job.log.debug 'ayy lmao'
+Signal.trap("INT") {
+  shut_down
+  exit
+}
+
+Signal.trap("TERM") {
+  shut_down
+  exit
+}
+
+dispatcher = Dispatcher.new
+dispatcher.start
