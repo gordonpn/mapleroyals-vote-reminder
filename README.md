@@ -45,6 +45,8 @@ Create a `.env` file with the following content:
 ```sh
 USERNAME=
 DEV=true
+SLACK_WEBHOOK_URL=
+HEALTHCHECK_UUID=
 ```
 
 ### Installing

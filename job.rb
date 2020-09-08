@@ -7,9 +7,11 @@ class Job
   def initialize
     @log = Logging.logger[self]
     @username = ENV["USERNAME"]
+    @healthchecks = HealthChecks.new
   end
 
   def run
+    @healthchecks.signal_start
     log.info "Vote status check started"
     data = {
       :name => @username,
@@ -34,6 +36,7 @@ class Job
       @voting_link = document.xpath("//*[@id=\"main\"]/center").css("a").attribute("href").value
     end
     log.info "Vote status check ended"
+    @healthchecks.signal
   end
 
   def has_voted?

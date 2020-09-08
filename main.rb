@@ -2,6 +2,7 @@ require "logging"
 require "dotenv"
 require_relative "job"
 require_relative "dispatcher"
+require_relative "healthchecks"
 
 Dotenv.load
 Logging.logger.root.level = ENV["DEV"] ? :debug : :info
@@ -22,5 +23,12 @@ Signal.trap("TERM") {
   exit
 }
 
-dispatcher = Dispatcher.new
-dispatcher.start
+begin
+  dispatcher = Dispatcher.new
+  dispatcher.start
+rescue => e
+  puts "Exception Occurred #{e}. Message: #{e.message}. Backtrace:  \n #{e.backtrace.join("\n")}"
+  healthchecks = HealthChecks.new
+  healthchecks.signal_fail
+  raise
+end
