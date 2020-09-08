@@ -14,7 +14,7 @@ class Job
 
   def run
     @healthchecks.signal_start
-    log.info "Vote status check started"
+    log.info "Checking vote status"
     data = {
       :name => @username,
       :gtop => "Vote",
@@ -39,7 +39,7 @@ class Job
       @voting_link = document.xpath("//*[@id=\"main\"]/center").css("a").attribute("href").value
       @notifier.send_notification(@voting_link, @latest_notice, @latest_event)
     end
-    log.info "Vote status check ended"
+    log.info "Checking vote status: DONE"
     @healthchecks.signal
   end
 
@@ -48,6 +48,7 @@ class Job
   end
 
   def scrape_event_notices
+    log.info "Scraping latest event and latest notice"
     response = Faraday.get "https://mapleroyals.com/forum/forums/announcements.2/"
     html = response.body
     document = Nokogiri::HTML(html)
@@ -65,5 +66,6 @@ class Job
       "text" => latest_event_doc.text,
       "link" => "https://mapleroyals.com/forum/#{latest_event_doc.attribute("href").value.strip}",
     }
+    log.info "Scraping latest event and latest notice: DONE"
   end
 end

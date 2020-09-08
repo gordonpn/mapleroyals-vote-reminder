@@ -12,7 +12,7 @@ class HealthChecks
     url = "https://hc-ping.com/#{@uuid}#{status}"
     response = Faraday.get url
     raise StandardError.new "Healthcheck status not ok" unless response.success?
-    log.info "Signaling healthcheck: Done"
+    log.info "Signaling healthcheck: DONE"
   end
 
   def signal_start
