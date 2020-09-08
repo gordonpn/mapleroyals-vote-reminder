@@ -13,10 +13,12 @@ class Dispatcher
 
   def schedule_interval
     loop do
-      @job.run
-      if @job.has_voted?
-        schedule_later
-        break
+      if Time.new.hour < 7 || Time.new.hour == 23
+        @job.run
+        if @job.has_voted?
+          schedule_later
+          break
+        end
       end
       minutes = rand(60..120)
       precise_time = Time.now + (minutes * 60)

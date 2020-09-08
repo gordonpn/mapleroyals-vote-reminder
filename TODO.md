@@ -1,4 +1,6 @@
 # TODO
 
 - [x] Add healthchecks
-- [ ] Post to Slack Webhook with voting link
+- [x] Post to Slack Webhook with voting link
+- [ ] Containerize
+- [ ] CI/CD pipeline

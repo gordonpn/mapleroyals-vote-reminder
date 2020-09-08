@@ -16,6 +16,7 @@ class Notifier
     log.info "Sending notification to user"
 
     form_data = {
+      text: "You have not yet voted for MapleRoyals today.",
       blocks: [
         {
           type: "section",
