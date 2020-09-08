@@ -1,24 +1,17 @@
-require 'nokogiri'
-require 'faraday'
+require 'logging'
+require 'dotenv'
+require_relative 'job'
+Dotenv.load
 
-data = {
-  :name => "gordonpnn",
-  :gtop => "Vote"
-}
+Logging.logger.root.level = ENV['DEV'] ? :debug : :info
+Logging.logger.root.appenders = Logging.appenders.stdout
 
-url = "https://mapleroyals.com/?page=vote"
-
-response = Faraday.post(url) do |req|
-  req.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-  req.body = URI.encode_www_form(data)
+class ReminderService
+  attr_reader :log
+  def initialize
+    @log = Logging.logger[self]
+  end
 end
-html = response.body
-document = Nokogiri::HTML(html)
-already_voted_message = document.xpath("//*[@id=\"main\"]/center").css("center").text
-if already_voted_message.include? "You have already voted."
-  puts "User has already voted"
-  return
-end
-puts "User has not yet voted"
-voting_link = document.xpath("//*[@id=\"main\"]/center").css("a").attribute("href").value
-puts voting_link
+
+job = Job.new
+job.log.debug 'ayy lmao'
