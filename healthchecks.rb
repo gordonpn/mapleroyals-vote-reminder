@@ -7,8 +7,8 @@ class HealthChecks
   end
 
   def signal(status = "")
-    log.info "Signaling healthcheck #{status}"
     return if ENV["DEV"]
+    log.info "Signaling healthcheck #{status}"
     url = "https://hc-ping.com/#{@uuid}#{status}"
     response = Faraday.get url
     raise StandardError.new "Healthcheck status not ok" unless response.success?
