@@ -2,8 +2,8 @@ require "logging"
 require "dotenv"
 require_relative "job"
 require_relative "dispatcher"
-Dotenv.load
 
+Dotenv.load
 Logging.logger.root.level = ENV["DEV"] ? :debug : :info
 Logging.logger.root.appenders = Logging.appenders.stdout
 

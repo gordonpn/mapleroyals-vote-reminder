@@ -20,14 +20,15 @@ class Dispatcher
         break
       end
       minutes = rand(60..120)
-      log.info "Sleeping #{minutes} minutes"
+      precise_time = Time.now + (minutes * 60)
+      log.info "Waiting #{minutes} minutes before next check at #{precise_time}"
       sleep(minutes * 60)
     end
   end
 
   def schedule_later
-    vote_time = 20
-    hours_wait = (vote_time - @time.hour)
+    vote_hour = 20
+    hours_wait = (vote_hour - @time.hour)
     precise_time = Time.now + (hours_wait * 60 * 60)
     log.info "Next check will be in #{hours_wait} hours at #{precise_time}"
     sleep(hours_wait)
