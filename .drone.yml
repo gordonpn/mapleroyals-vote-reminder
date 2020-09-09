@@ -1,0 +1,82 @@
+---
+kind: pipeline
+type: docker
+name: notification
+
+trigger:
+  event: [push, pull_request]
+
+steps:
+  - name: slack before
+    image: plugins/slack
+    failure: ignore
+    settings:
+      channel: drone-ci
+      template: >
+        {{build.event}} on branch {{build.branch}} from repo {{repo.name}}
+
+        build #{{build.number}} started
+
+        {{build.link}}
+      webhook:
+        from_secret: SLACK_WEBHOOK_URL
+---
+kind: pipeline
+type: docker
+name: build and publish docker image
+
+platform:
+  os: linux
+  arch: amd64
+
+trigger:
+  event: [push, pull_request]
+  branch:
+    exclude:
+      - master
+
+steps:
+  - name: publish
+    image: gordonpn/docker-buildx-drone
+    environment:
+      DOCKER_TOKEN:
+        from_secret: DOCKER_TOKEN
+    volumes:
+      - name: dockersock
+        path: /var/run/docker.sock
+    commands:
+      - /drone/src/.docker/scripts/build.sh
+
+volumes:
+  - name: dockersock
+    host:
+      path: /var/run/docker.sock
+---
+kind: pipeline
+type: docker
+name: deploy
+
+trigger:
+  event: [push]
+  branch: [master]
+
+steps:
+  - name: deploy prod
+    image: docker/compose:1.25.5
+    environment:
+      USERNAME:
+        from_secret: USERNAME
+      HEALTHCHECK_UUID:
+        from_secret: HEALTHCHECK_UUID
+      SLACK_NOTIFIER_URL:
+        from_secret: SLACK_NOTIFIER_URL
+    volumes:
+      - name: dockersock
+        path: /var/run/docker.sock
+    commands:
+      - /drone/src/docker/scripts/deploy.sh
+
+volumes:
+  - name: dockersock
+    host:
+      path: /var/run/docker.sock

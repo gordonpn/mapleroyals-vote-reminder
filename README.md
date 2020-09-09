@@ -4,20 +4,22 @@
 
 ### Problem
 
-This game allows "voting" for the server every 24 hours, which resets every day at midnight GMT. (Voting gives you a bit of in-game advantage).
+This game allows "voting" for the server every 24 hours, which resets every day at midnight UTC. (Voting gives you a bit of in-game advantage).
 
 Remembering to do this every day takes mental space unnecessarily.
 
 ### Purpose
 
-Thus, the purpose of this script/service. At intervals, it checks if the user has voted, if they have not voted, then a message is sent to the user through a Slack webhook with the link. If they have already voted, then it will resume after the server time has reset at midnight GMT.
+Thus, the purpose of this script/service. At intervals, it checks if the user has voted, if they have not voted, then a message is sent to the user through a Slack webhook with the link. If they have already voted, then it will resume after the server time has reset at midnight UTC.
 
 ---
 
 [![Project Status: WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 
 <!-- [![Build Status](https://drone.gordon-pn.com/api/badges/gordonpn/)](https://drone.gordon-pn.com/gordonpn/) -->
-<!-- ![Healthchecks.io]() -->
+
+![Healthchecks.io](https://healthchecks.io/badge/b717bc78-ce20-458b-a71c-53231a83bd4c/m7-UBJB6.svg)
+
 <!-- ![License](https://badgen.net/github/license/gordonpn/) -->
 
 [![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/gordonpn)
@@ -45,7 +47,7 @@ Create a `.env` file with the following content:
 ```sh
 USERNAME=
 DEV=true
-SLACK_WEBHOOK_URL=
+SLACK_NOTIFIER_URL=
 HEALTHCHECK_UUID=
 ```
 

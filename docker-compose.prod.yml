@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  reminder:
+    container_name: mapleroyals-vote-reminder
+    image:
+    restart: unless-stopped
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        order: start-first
+        failure_action: rollback
+        delay: 10s
+      rollback_config:
+        parallelism: 0
+        order: stop-first
+      restart_policy:
+        condition: any
+        delay: 60s
+        max_attempts: 5
+        window: 120s

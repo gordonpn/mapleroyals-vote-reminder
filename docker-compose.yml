@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  reminder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - HEALTHCHECK_UUID
+      - SLACK_NOTIFIER_URL
+      - TZ=America/Montreal
+      - USERNAME
