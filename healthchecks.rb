@@ -4,10 +4,11 @@ class HealthChecks
   def initialize
     @log = Logging.logger[self]
     @uuid = ENV["HEALTHCHECK_UUID"]
+    raise StandardError.new "Healthcheck UUID cannot be empty" if @uuid.to_s.empty? && !ENV.has_key?("DEV")
   end
 
   def signal(status = "")
-    return if ENV["DEV"]
+    return if ENV.has_key?("DEV")
     log.info "Signaling healthcheck #{status}"
     url = "https://hc-ping.com/#{@uuid}#{status}"
     response = Faraday.get url

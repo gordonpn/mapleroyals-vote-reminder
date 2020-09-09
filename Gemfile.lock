@@ -1,0 +1,27 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    dotenv (2.7.6)
+    faraday (1.0.1)
+      multipart-post (>= 1.2, < 3)
+    little-plugger (1.1.4)
+    logging (2.3.0)
+      little-plugger (~> 1.1)
+      multi_json (~> 1.14)
+    mini_portile2 (2.4.0)
+    multi_json (1.15.0)
+    multipart-post (2.1.1)
+    nokogiri (1.10.10)
+      mini_portile2 (~> 2.4.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  dotenv
+  faraday
+  logging
+  nokogiri
+
+BUNDLED WITH
+   2.1.4

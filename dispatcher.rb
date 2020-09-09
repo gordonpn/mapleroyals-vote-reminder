@@ -13,7 +13,8 @@ class Dispatcher
 
   def schedule_interval
     loop do
-      if Time.new.hour < 7 || Time.new.hour == 23
+      log.info "Current hour is #{Time.new.hour}"
+      if Time.new.hour > 6 && Time.new.hour != 23
         @job.run
         if @job.has_voted?
           schedule_later

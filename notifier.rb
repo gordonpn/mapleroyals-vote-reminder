@@ -6,6 +6,7 @@ class Notifier
   def initialize
     @log = Logging.logger[self]
     @url = ENV["SLACK_WEBHOOK_URL"]
+    raise StandardError.new "Slack webhook URL cannot be empty" if @url.to_s.empty?
   end
 
   def send_notification(link, latest_notice, latest_event)
