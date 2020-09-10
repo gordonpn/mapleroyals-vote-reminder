@@ -118,6 +118,9 @@ trigger:
   event: [push]
   branch: [master]
 
+depends_on:
+  - build and publish stable
+
 steps:
   - name: deploy
     image: docker/compose:1.25.5
