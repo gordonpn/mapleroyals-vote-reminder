@@ -1,6 +1,8 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-gem "nokogiri"
-gem "faraday"
-gem "logging"
-gem "dotenv", groups: [:development, :test]
+source 'https://rubygems.org'
+
+gem 'dotenv', groups: %i[development test]
+gem 'faraday'
+gem 'logging'
+gem 'nokogiri'

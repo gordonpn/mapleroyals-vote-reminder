@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Dispatcher
   attr_reader :log
 
@@ -6,10 +8,10 @@ class Dispatcher
   end
 
   def start
-    log.info "Dispatcher started"
+    log.info 'Dispatcher started'
     @job = Job.new
-    schedule_interval unless ENV.has_key?("DEV")
-    @job.run if ENV.has_key?("DEV")
+    schedule_interval unless ENV.key?('DEV')
+    @job.run if ENV.key?('DEV')
   end
 
   def schedule_interval
@@ -17,7 +19,7 @@ class Dispatcher
       log.info "Current Time is #{Time.new.inspect}"
       if Time.new.hour > 6 && Time.new.hour != 23
         @job.run
-        if @job.has_voted?
+        if @job.voted?
           schedule_later
           break
         end

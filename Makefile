@@ -4,9 +4,6 @@
 help: ## Show this help
 	@egrep -h '\s##\s' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[33m%-20s\033[0m %s\n", $$1, $$2}'
 
-format: ## Format with Rufo
-	rufo .
-
 start: ## Start the script
 	ruby main.rb
 
@@ -14,7 +11,7 @@ build-docker: ## Build the docker image and name it mapleroyals-vote-reminder
 	docker rm mapleroyals-vote-reminder || true
 	docker build -t mapleroyals-vote-reminder .
 
-run-docker: build-docker  ## Run the Doccker container
+run-docker: build-docker  ## Run the Docker container
 	docker run -it --name mapleroyals-vote-reminder --env DEV=true mapleroyals-vote-reminder
 
 gemlock: ## Generate a Gemfile.lock
