@@ -33,7 +33,12 @@ class Dispatcher
 
   def schedule_later
     vote_hour = 20
-    hours_wait = (vote_hour - Time.new.hour)
+    hour_now = Time.new.hour
+    hours_wait = if hour_now >= vote_hour
+                   24 - (hour_now - vote_hour)
+                 else
+                   (vote_hour - hour_now)
+                 end
     precise_time = Time.now + (hours_wait * 60 * 60)
     log.info "Next check will be in #{hours_wait} hours at #{precise_time}"
     sleep(hours_wait * 60 * 60)
