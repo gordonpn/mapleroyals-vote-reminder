@@ -3,7 +3,7 @@ version: "3.8"
 services:
   reminder:
     container_name: mapleroyals-vote-reminder
-    image:
+    image: ghcr.io/gordonpn/mapleroyals-vote-reminder:stable
     restart: unless-stopped
     deploy:
       replicas: 1

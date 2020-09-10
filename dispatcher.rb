@@ -8,12 +8,13 @@ class Dispatcher
   def start
     log.info "Dispatcher started"
     @job = Job.new
-    schedule_interval
+    schedule_interval unless ENV.has_key?("DEV")
+    @job.run if ENV.has_key?("DEV")
   end
 
   def schedule_interval
     loop do
-      log.info "Current hour is #{Time.new.hour}"
+      log.info "Current Time is #{Time.new.inspect}"
       if Time.new.hour > 6 && Time.new.hour != 23
         @job.run
         if @job.has_voted?

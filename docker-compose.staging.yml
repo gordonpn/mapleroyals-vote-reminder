@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  reminder:
+    container_name: mapleroyals-vote-reminder-staging
+    image: ghcr.io/gordonpn/mapleroyals-vote-reminder:latest
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: none

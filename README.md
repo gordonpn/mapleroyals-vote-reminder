@@ -15,9 +15,7 @@ Thus, the purpose of this script/service. At intervals, it checks if the user ha
 ---
 
 [![Project Status: WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
-
-<!-- [![Build Status](https://drone.gordon-pn.com/api/badges/gordonpn/)](https://drone.gordon-pn.com/gordonpn/) -->
-
+[![Build Status](https://drone.gordon-pn.com/api/badges/gordonpn/mapleroyals-vote-reminder/status.svg)](https://drone.gordon-pn.com/gordonpn/mapleroyals-vote-reminder)
 ![Healthchecks.io](https://healthchecks.io/badge/b717bc78-ce20-458b-a71c-53231a83bd4c/m7-UBJB6.svg)
 
 <!-- ![License](https://badgen.net/github/license/gordonpn/) -->
