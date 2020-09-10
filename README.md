@@ -14,11 +14,10 @@ Thus, the purpose of this script/service. At intervals, it checks if the user ha
 
 ---
 
-[![Project Status: WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Build Status](https://drone.gordon-pn.com/api/badges/gordonpn/mapleroyals-vote-reminder/status.svg)](https://drone.gordon-pn.com/gordonpn/mapleroyals-vote-reminder)
 ![Healthchecks.io](https://healthchecks.io/badge/b717bc78-ce20-458b-a71c-53231a83bd4c/m7-UBJB6.svg)
-
-<!-- ![License](https://badgen.net/github/license/gordonpn/) -->
+![License](https://badgen.net/github/license/gordonpn/mapleroyals-vote-reminder)
 
 [![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/gordonpn)
 
