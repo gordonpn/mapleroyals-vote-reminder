@@ -6,3 +6,5 @@ Metrics/LineLength:
   Enabled: false
 Style/Documentation:
   Enabled: false
+Layout/FirstHashElementIndentation:
+  Enabled: false

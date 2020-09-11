@@ -17,13 +17,10 @@ class Dispatcher
   def schedule_interval
     loop do
       log.info "Current Time is #{Time.new.inspect}"
-      if Time.new.hour > 6 && Time.new.hour != 23
-        @job.run
-        if @job.voted?
-          schedule_later
-          break
-        end
-      end
+      @job.run
+      return schedule_later if @job.voted?
+      return schedule_later(7) if Time.new.hour > 6 && Time.new.hour != 23
+
       minutes = rand(60..120)
       precise_time = Time.now + (minutes * 60)
       log.info "Waiting #{minutes} minutes before next check at #{precise_time}"
@@ -31,13 +28,12 @@ class Dispatcher
     end
   end
 
-  def schedule_later
-    vote_hour = 20
+  def schedule_later(resume_hour = 20)
     hour_now = Time.new.hour
-    hours_wait = if hour_now >= vote_hour
-                   24 - (hour_now - vote_hour)
+    hours_wait = if hour_now >= resume_hour
+                   24 - (hour_now - resume_hour)
                  else
-                   (vote_hour - hour_now)
+                   (resume_hour - hour_now)
                  end
     precise_time = Time.now + (hours_wait * 60 * 60)
     log.info "Next check will be in #{hours_wait} hours at #{precise_time}"
