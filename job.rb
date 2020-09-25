@@ -55,19 +55,35 @@ class Job
     html = response.body
     document = Nokogiri::HTML(html)
     all_threads = '//*[@id="content"]/div/div/div[4]/form[1]/ol'
-    latest_notice_doc = document.xpath(all_threads).css('li:not(.sticky)')[2].css('div')[1].css('div').css('h3').css('a')[1]
-    @latest_notice = {
+    begin
+      latest_notice_doc = get_first_not_sticky(document.xpath(all_threads))
+    rescue NoMethodError => e
+      log.error e.message
+      log.error 'Could not scrape latest notice'
+    else
+      @latest_notice = {
         'text' => latest_notice_doc.text,
         'link' => "https://mapleroyals.com/forum/#{latest_notice_doc.attribute('href').value.strip}"
-    }
+      }
+    end
     response = Faraday.get 'https://mapleroyals.com/forum/forums/events.79/'
     html = response.body
     document = Nokogiri::HTML(html)
-    latest_event_doc = document.xpath(all_threads).css('li').first.css('div')[1].css('div').css('h3').css('a')[1]
-    @latest_event = {
+    begin
+      latest_event_doc = get_first_not_sticky(document.xpath(all_threads))
+    rescue NoMethodError => e
+      log.error e.message
+      log.error 'Could not scrape latest event'
+    else
+      @latest_event = {
         'text' => latest_event_doc.text,
         'link' => "https://mapleroyals.com/forum/#{latest_event_doc.attribute('href').value.strip}"
-    }
+      }
+    end
     log.info 'Scraping latest event and latest notice: DONE'
+  end
+
+  def get_first_not_sticky(doc)
+    doc.css('li:not(.sticky)')[2].css('div')[1].css('div').css('h3').css('a')[1]
   end
 end
