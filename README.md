@@ -21,6 +21,10 @@ Thus, the purpose of this script/service. At intervals, it checks if the user ha
 
 [![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/gordonpn)
 
+## Screenshot
+
+<a href="./docs/screenshot.jpeg"><img src="./docs/screenshot.jpeg" height="500"></a>
+
 ## Built with / technologies
 
 Ruby 2.7.1
