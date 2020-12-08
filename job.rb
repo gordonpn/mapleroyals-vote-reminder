@@ -69,7 +69,7 @@ class Job
     html = response.body
     document = Nokogiri::HTML(html)
     begin
-      latest_event_doc = get_first_not_sticky(document.xpath(all_threads))
+      latest_event_doc = get_first_sticky(document.xpath(all_threads))
       @latest_event = {
         'text' => latest_event_doc.text,
         'link' => "https://mapleroyals.com/forum/#{latest_event_doc.attribute('href').value.strip}"
@@ -83,5 +83,9 @@ class Job
 
   def get_first_not_sticky(doc)
     doc.css('li:not(.sticky)')[2].css('div')[1].css('div').css('h3').css('a')[1]
+  end
+
+  def get_first_sticky(doc)
+    doc.css('li')[1].css('div')[1].css('div').css('h3').css('a')[1]
   end
 end
