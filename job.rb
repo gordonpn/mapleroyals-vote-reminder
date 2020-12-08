@@ -18,8 +18,8 @@ class Job
     @healthcheck.signal_start
     log.info 'Checking vote status'
     data = {
-        name: @username,
-        gtop: 'Vote'
+      name: @username,
+      gtop: 'Vote'
     }
 
     url = 'https://mapleroyals.com/?page=vote'
@@ -57,28 +57,26 @@ class Job
     all_threads = '//*[@id="content"]/div/div/div[4]/form[1]/ol'
     begin
       latest_notice_doc = get_first_not_sticky(document.xpath(all_threads))
-    rescue NoMethodError => e
-      log.error e.message
-      log.error 'Could not scrape latest notice'
-    else
       @latest_notice = {
         'text' => latest_notice_doc.text,
         'link' => "https://mapleroyals.com/forum/#{latest_notice_doc.attribute('href').value.strip}"
       }
+    rescue NoMethodError => e
+      log.error e.message
+      log.error 'Could not scrape latest notice'
     end
     response = Faraday.get 'https://mapleroyals.com/forum/forums/events.79/'
     html = response.body
     document = Nokogiri::HTML(html)
     begin
       latest_event_doc = get_first_not_sticky(document.xpath(all_threads))
-    rescue NoMethodError => e
-      log.error e.message
-      log.error 'Could not scrape latest event'
-    else
       @latest_event = {
         'text' => latest_event_doc.text,
         'link' => "https://mapleroyals.com/forum/#{latest_event_doc.attribute('href').value.strip}"
       }
+    rescue NoMethodError => e
+      log.error e.message
+      log.error 'Could not scrape latest event'
     end
     log.info 'Scraping latest event and latest notice: DONE'
   end

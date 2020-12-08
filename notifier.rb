@@ -13,8 +13,9 @@ class Notifier
 
   def send_notification(link, latest_notice, latest_event)
     raise StandardError, 'Link cannot be empty' if link.to_s.strip.empty?
-    latest_notice = {'text' => 'View notices', 'link' => 'https://mapleroyals.com/forum/forums/announcements.2/'} if latest_notice.nil?
-    latest_event = {'text' => 'View events', 'link' => 'https://mapleroyals.com/forum/forums/events.79/'} if latest_event.nil?
+
+    latest_notice = { 'text' => 'View notices', 'link' => 'https://mapleroyals.com/forum/forums/announcements.2/' } if latest_notice.nil?
+    latest_event = { 'text' => 'View events', 'link' => 'https://mapleroyals.com/forum/forums/events.79/' } if latest_event.nil?
 
     log.info 'Sending notification to user'
 
