@@ -2,9 +2,11 @@ Metrics/MethodLength:
   Enabled: false
 Metrics/AbcSize:
   Enabled: false
-Metrics/LineLength:
+Layout/LineLength:
   Enabled: false
 Style/Documentation:
   Enabled: false
 Layout/FirstHashElementIndentation:
   Enabled: false
+AllCops:
+  NewCops: enable
