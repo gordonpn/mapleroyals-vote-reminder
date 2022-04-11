@@ -12,7 +12,7 @@ build-docker: ## Build the docker image and name it mapleroyals-vote-reminder
 	docker build -t mapleroyals-vote-reminder .
 
 run-docker: build-docker  ## Run the Docker container
-	docker run -it --name mapleroyals-vote-reminder --env DEV=true mapleroyals-vote-reminder
+	docker run -it --name mapleroyals-vote-reminder --env-file ./.env mapleroyals-vote-reminder
 
 gemlock: ## Generate a Gemfile.lock
 	docker run --rm -v ${CURDIR}:/usr/src/app -w /usr/src/app ruby:2.7 bundle install
